@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import SummaryWidget from "./components/SummaryWidget";
-import InvoicesWidget from "./components/InvoicesWidget";
+import SummaryWidget from "./components/Summary/SummaryWidget";
+import InvoicesWidget from "./components/Invoices/InvoicesWidget";
 import api from "./services/api";
+import { Button, Wrapper } from "./App.styles";
 
 const App = () => {
   const [transactions, setTransactions] = useState([]);
   const [invoices, setInvoices] = useState([]);
+  const [showSummary, setShowSummary] = useState(false);
 
   useEffect(() => {
     // Fetch transactions from the API
@@ -35,15 +37,33 @@ const App = () => {
       return updatedInvoices;
     });
   };
+  const handleNavigateToInvoices = () => {
+    setShowSummary(false);
+  };
+
+  const handleNavigateToSummary = () => {
+    setShowSummary(true);
+  };
 
   return (
     <div>
-      <SummaryWidget transactions={transactions} invoices={invoices} />
-      <InvoicesWidget
-        invoices={invoices}
-        onCreateInvoice={handleCreateInvoice}
-        onUpdateInvoice={handleUpdateInvoice}
-      />
+      <Wrapper>
+        <nav>
+          <Button onClick={handleNavigateToSummary}>Summary</Button>
+          <Button onClick={handleNavigateToInvoices}>Invoices</Button>
+        </nav>
+      </Wrapper>
+      {/* <hr /> */}
+
+      {showSummary ? (
+        <SummaryWidget transactions={transactions} invoices={invoices} />
+      ) : (
+        <InvoicesWidget
+          invoices={invoices}
+          onCreateInvoice={handleCreateInvoice}
+          onUpdateInvoice={handleUpdateInvoice}
+        />
+      )}
     </div>
   );
 };

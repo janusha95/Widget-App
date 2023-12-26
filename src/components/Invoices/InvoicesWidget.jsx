@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import InvoiceForm from "../InvoiceForm";
+import InvoiceForm from "./InvoiceForm";
 
 const InvoicesWidget = ({ invoices, onCreateInvoice, onUpdateInvoice }) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -16,8 +16,8 @@ const InvoicesWidget = ({ invoices, onCreateInvoice, onUpdateInvoice }) => {
     setIsFormVisible(true);
   };
 
-  const handleUpdateInvoice = (updatedInvoice) => {
-    onUpdateInvoice(updatedInvoice);
+  const handleUpdateInvoice = (updatedInvoice, index) => {
+    onUpdateInvoice(updatedInvoice, index);
     setEditingInvoice(null);
     setIsFormVisible(false);
   };
@@ -31,7 +31,12 @@ const InvoicesWidget = ({ invoices, onCreateInvoice, onUpdateInvoice }) => {
         <InvoiceForm
           initialInvoice={editingInvoice}
           onCreateInvoice={handleCreateInvoice}
-          onUpdateInvoice={handleUpdateInvoice}
+          onUpdateInvoice={(updatedInvoice) =>
+            handleUpdateInvoice(
+              updatedInvoice,
+              invoices.indexOf(editingInvoice)
+            )
+          }
         />
       )}
       <InvoicesList>

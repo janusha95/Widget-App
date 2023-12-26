@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import { SummaryContainer, SummaryWrapper } from "./Summary.styles";
 
 const SummaryWidget = ({ transactions, invoices }) => {
   const [totalAmount, setTotalAmount] = useState(0);
+  const POSITIVE_THRESHOLD = 1000;
 
   useEffect(() => {
     // Calculate total amount from transactions
@@ -25,25 +26,12 @@ const SummaryWidget = ({ transactions, invoices }) => {
 
   return (
     <SummaryContainer className={getColorClass()}>
-      <div>Total Amount: ${totalAmount}</div>
-      <div>Invoices created in the last 30 days: {invoices.length}</div>
+      <SummaryWrapper>
+        <div>Total Amount: ${totalAmount}</div>
+        <div>Invoices created in the last 30 days: {invoices.length}</div>
+      </SummaryWrapper>
     </SummaryContainer>
   );
 };
-
-const POSITIVE_THRESHOLD = 1000; // Adjust as needed
-
-const SummaryContainer = styled.div`
-  // Styling for different color classes
-  &.green {
-    color: green;
-  }
-  &.yellow {
-    color: yellow;
-  }
-  &.red {
-    color: red;
-  }
-`;
 
 export default SummaryWidget;

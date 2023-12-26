@@ -1,11 +1,10 @@
 // Mock API service
 const api = {
   getTransactions: () => {
-    // Mock implementation, replace with actual API call
     const mockInvoices = [
       {
         client: "Client A",
-        creationDate: "2023-01-01",
+        creationDate: "2023-12-12",
         referenceNumber: "INV-001",
         amount: 1000,
         status: "PAID",
@@ -24,7 +23,6 @@ const api = {
         amount: 800,
         status: "PAID",
       },
-      // Add more invoices as needed
     ];
 
     return Promise.resolve(mockInvoices);
