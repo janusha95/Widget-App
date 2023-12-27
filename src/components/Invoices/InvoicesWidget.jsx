@@ -1,10 +1,31 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import InvoiceForm from "./InvoiceForm";
+import {
+  InvoicesContainer,
+  SummaryWrapper,
+  InvoicesList,
+} from "./Invoice.styles";
+import { Button } from "../../App.styles";
 
-const InvoicesWidget = ({ invoices, onCreateInvoice, onUpdateInvoice }) => {
+const InvoicesWidget = ({
+  invoices,
+  transactions,
+  onCreateInvoice,
+  onUpdateInvoice,
+}) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingInvoice, setEditingInvoice] = useState(null);
+
+  const isInvoicePaid = (invoice, transactions) => {
+    const matchingTransactions = transactions.filter(
+      (transaction) =>
+        transaction.amount === invoice.amount &&
+        transaction.ID === invoice.ID &&
+        new Date(transaction.transactionDate) > new Date(invoice.creationDate)
+    );
+    return matchingTransactions.length > 0;
+  };
 
   const handleCreateInvoice = (invoice) => {
     onCreateInvoice(invoice);
@@ -24,9 +45,9 @@ const InvoicesWidget = ({ invoices, onCreateInvoice, onUpdateInvoice }) => {
 
   return (
     <InvoicesContainer>
-      <button onClick={() => setIsFormVisible(!isFormVisible)}>
+      <Button onClick={() => setIsFormVisible(!isFormVisible)}>
         {isFormVisible ? "Close Invoice Form" : "Create New Invoice"}
-      </button>
+      </Button>
       {isFormVisible && (
         <InvoiceForm
           initialInvoice={editingInvoice}
@@ -40,9 +61,14 @@ const InvoicesWidget = ({ invoices, onCreateInvoice, onUpdateInvoice }) => {
         />
       )}
       <InvoicesList>
+        <div>
+          {"ID"} - {"Date"} - {"Name"} - {"Amount"} - {"Status"}
+        </div>
         {invoices.map((invoice) => (
-          <div key={invoice.referenceNumber}>
-            {invoice.client} - ${invoice.amount} - {invoice.status}
+          <div key={invoice.ID}>
+            {invoice.ID} - {invoice.creationDate} - {invoice.name} - $
+            {invoice.amount} -{" "}
+            {isInvoicePaid(invoice, transactions) ? "PAID" : "NOT PAID"}
             <button onClick={() => handleEditInvoice(invoice)}>Edit</button>
           </div>
         ))}
@@ -50,13 +76,5 @@ const InvoicesWidget = ({ invoices, onCreateInvoice, onUpdateInvoice }) => {
     </InvoicesContainer>
   );
 };
-
-const InvoicesContainer = styled.div`
-  // Additional styling for the invoices container
-`;
-
-const InvoicesList = styled.div`
-  // Styling for the list of invoices
-`;
 
 export default InvoicesWidget;

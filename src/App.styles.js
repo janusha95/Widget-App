@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  background: transparent;
   border-radius: 3px;
   border: 1px solid black;
   color: black;
@@ -20,4 +19,5 @@ export const Button = styled.button`
   transition: all 200ms ease-in-out;
   width: 11rem;
   cursor: pointer;
+  background-color: white;
 `;

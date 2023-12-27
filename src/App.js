@@ -7,30 +7,23 @@ import { Button, Wrapper } from "./App.styles";
 const App = () => {
   const [transactions, setTransactions] = useState([]);
   const [invoices, setInvoices] = useState([]);
-  const [showSummary, setShowSummary] = useState(false);
+  const [showSummary, setShowSummary] = useState(true);
 
   useEffect(() => {
-    // Fetch transactions from the API
     api.getTransactions().then((data) => setTransactions(data));
-
-    // For simplicity, invoices are initialized with an empty array
-    setInvoices([]);
+    api.getInvoices().then((data) => setInvoices(data));
   }, []);
 
   const handleCreateInvoice = (newInvoice) => {
-    // Update invoices state with the new invoice
     setInvoices([...invoices, newInvoice]);
   };
 
   const handleUpdateInvoice = (updatedInvoice) => {
-    // Update the state with the modified invoice
     setInvoices((prevInvoices) => {
-      // Find the index of the updated invoice in the array
       const index = prevInvoices.findIndex(
-        (invoice) => invoice.referenceNumber === updatedInvoice.referenceNumber
+        (invoice) => invoice.ID === updatedInvoice.ID
       );
 
-      // Create a new array with the updated invoice
       const updatedInvoices = [...prevInvoices];
       updatedInvoices[index] = updatedInvoice;
 
@@ -59,6 +52,7 @@ const App = () => {
         <SummaryWidget transactions={transactions} invoices={invoices} />
       ) : (
         <InvoicesWidget
+          transactions={transactions}
           invoices={invoices}
           onCreateInvoice={handleCreateInvoice}
           onUpdateInvoice={handleUpdateInvoice}

@@ -1,44 +1,43 @@
 import React, { useState, useEffect } from "react";
 
 const InvoiceForm = ({ initialInvoice, onCreateInvoice, onUpdateInvoice }) => {
-  const [client, setClient] = useState(
-    initialInvoice ? initialInvoice.client : ""
-  );
+  const [name, setName] = useState(initialInvoice ? initialInvoice.name : "");
   const [amount, setAmount] = useState(
     initialInvoice ? String(initialInvoice.amount) : ""
   );
 
-  // ... other form fields
+  const [ID, setID] = useState(initialInvoice ? String(initialInvoice.ID) : "");
+  const [creationDate, setCreationDate] = useState(
+    initialInvoice ? String(initialInvoice.creationDate) : ""
+  );
 
   useEffect(() => {
-    // Update form fields when initialInvoice changes (for editing)
     if (initialInvoice) {
-      setClient(initialInvoice.client);
+      setName(initialInvoice.name);
       setAmount(String(initialInvoice.amount));
-      // ... update other form fields
+      setID(String(initialInvoice.ID));
+      setCreationDate(initialInvoice.creationDate);
     }
   }, [initialInvoice]);
 
   const handleSaveInvoice = () => {
     const updatedInvoice = {
-      client,
+      ID,
+      creationDate,
+      name,
       amount: parseFloat(amount),
-      // ... other form fields
     };
 
     if (initialInvoice) {
-      // If initialInvoice exists, it's an edit operation
-      updatedInvoice.referenceNumber = initialInvoice.referenceNumber;
+      updatedInvoice.ID = initialInvoice.ID;
       onUpdateInvoice(updatedInvoice);
     } else {
-      // If initialInvoice is null, it's a new invoice creation
       onCreateInvoice(updatedInvoice);
     }
 
-    // Reset form fields
-    setClient("");
+    setID("");
+    setName("");
     setAmount("");
-    // ... reset other form fields
   };
 
   return (
@@ -46,11 +45,19 @@ const InvoiceForm = ({ initialInvoice, onCreateInvoice, onUpdateInvoice }) => {
       <h2>{initialInvoice ? "Edit Invoice" : "Create New Invoice"}</h2>
       <form>
         <label>
-          Client:
+          ID:
+          <input
+            type="number"
+            value={ID}
+            onChange={(e) => setID(e.target.value)}
+          />
+        </label>
+        <label>
+          Name:
           <input
             type="text"
-            value={client}
-            onChange={(e) => setClient(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </label>
         <label>
@@ -61,7 +68,6 @@ const InvoiceForm = ({ initialInvoice, onCreateInvoice, onUpdateInvoice }) => {
             onChange={(e) => setAmount(e.target.value)}
           />
         </label>
-        {/* ... other form fields */}
         <button type="button" onClick={handleSaveInvoice}>
           {initialInvoice ? "Update Invoice" : "Create Invoice"}
         </button>

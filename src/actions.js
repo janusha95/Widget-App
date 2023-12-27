@@ -1,4 +1,3 @@
-// actions.js
 export const CREATE_INVOICE = "CREATE_INVOICE";
 
 export const createInvoice = (invoice) => ({
