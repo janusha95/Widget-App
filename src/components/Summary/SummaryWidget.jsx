@@ -5,12 +5,15 @@ import {
   SummaryList,
   TotalAmount,
   ClientSelectionWrapper,
+  Name,
+  NameDropdown,
 } from "./Summary.styles";
 
 const SummaryWidget = ({ transactions, invoices }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [selectedName, setSelectedName] = useState("");
   const [uniqueClients, setUniqueClients] = useState([]);
+  const [invoicesLast30Days, setInvoicesLast30Days] = useState([]);
   const POSITIVE_THRESHOLD = 1000;
 
   useEffect(() => {
@@ -34,6 +37,17 @@ const SummaryWidget = ({ transactions, invoices }) => {
       : transactions;
   };
 
+  useEffect(() => {
+    const currentDate = new Date();
+    const oneMonth = new Date(currentDate);
+    oneMonth.setDate(currentDate.getDate() - 30);
+
+    const filteredInvoices = invoices.filter(
+      (invoice) => new Date(invoice.creationDate) >= oneMonth
+    );
+    setInvoicesLast30Days(filteredInvoices);
+  }, [invoices]);
+
   const handleNameChange = (event) => {
     setSelectedName(event.target.value);
   };
@@ -54,13 +68,14 @@ const SummaryWidget = ({ transactions, invoices }) => {
         <TotalAmount className={getColorClass()}>
           Total Amount: ${totalAmount}
         </TotalAmount>
-        <p>Invoices created in the last 30 days: {invoices.length}</p>
+        <p>Invoices created in the last 30 days: {invoicesLast30Days.length}</p>
         <ClientSelectionWrapper>
-          <label htmlFor="clientDropdown">Select a Client:</label>
-          <select
-            id="clientDropdown"
+          <Name>Select a Customer:</Name>
+          <NameDropdown
+            id="customerDropdown"
             value={selectedName}
             onChange={handleNameChange}
+            className="dropdown"
           >
             <option value="">All Clients</option>
             {uniqueClients.map((name) => (
@@ -68,9 +83,9 @@ const SummaryWidget = ({ transactions, invoices }) => {
                 {name}
               </option>
             ))}
-          </select>
+          </NameDropdown>
         </ClientSelectionWrapper>
-        <h3>Summary for {selectedName || "All Clients"}</h3>
+        <h3>Summary for {selectedName || "All Customers"}</h3>
         <SummaryList>
           <thead>
             <tr>

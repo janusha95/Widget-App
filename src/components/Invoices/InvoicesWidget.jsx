@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import InvoiceForm from "./InvoiceForm";
-import {
-  InvoicesContainer,
-  SummaryWrapper,
-  InvoicesList,
-} from "./Invoice.styles";
+import { InvoicesContainer, InvoicesList } from "./Invoice.styles";
 import { Button } from "../../App.styles";
+import EditIcon from "@mui/icons-material/Edit";
 
 const InvoicesWidget = ({
   invoices,
@@ -84,7 +81,10 @@ const InvoicesWidget = ({
               </td>
               <td>
                 {" "}
-                <button onClick={() => handleEditInvoice(invoice)}>Edit</button>
+                <EditIcon
+                  style={{ cursor: "pointer", fontSize: "14" }}
+                  onClick={() => handleEditInvoice(invoice)}
+                />
               </td>
             </tr>
           ))}

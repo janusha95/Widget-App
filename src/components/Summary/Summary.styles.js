@@ -74,3 +74,14 @@ export const ClientSelectionWrapper = styled.div`
   padding: 10px;
   color: black;
 `;
+
+export const NameDropdown = styled.select`
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+export const Name = styled.p`
+  margin-right: 8px;
+  font-size: 16px;
+`;
