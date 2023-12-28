@@ -1,36 +1,21 @@
 import styled from "styled-components";
 
 export const SummaryContainer = styled.div`
-  // Styling for different color classes
-  &.green {
-    color: green;
-  }
-  &.yellow {
-    color: yellow;
-  }
-  &.red {
-    color: red;
-  }
-`;
-
-export const TotalAmount = styled.div`
-  &.green {
-    color: green;
-  }
-  &.yellow {
-    color: yellow;
-  }
-  &.red {
-    color: red;
-  }
-`;
-
-export const SummaryWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
-  color: black;
+`;
+
+export const TotalAmount = styled.p`
+  &.green {
+    color: green;
+  }
+  &.yellow {
+    color: gold;
+  }
+  &.red {
+    color: red;
+  }
 `;
 
 export const SummaryList = styled.table`
@@ -81,7 +66,11 @@ export const NameDropdown = styled.select`
   cursor: pointer;
 `;
 
-export const Name = styled.p`
+export const Desc = styled.p`
   margin-right: 8px;
   font-size: 16px;
+`;
+
+export const AmountWrapper = styled.div`
+  display: flex;
 `;

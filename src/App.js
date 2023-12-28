@@ -41,12 +41,9 @@ const App = () => {
   return (
     <div>
       <Wrapper>
-        <nav>
-          <Button onClick={handleNavigateToSummary}>Summary</Button>
-          <Button onClick={handleNavigateToInvoices}>Invoices</Button>
-        </nav>
+        <Button onClick={handleNavigateToSummary}>Summary</Button>
+        <Button onClick={handleNavigateToInvoices}>Invoices</Button>
       </Wrapper>
-      {/* <hr /> */}
 
       {showSummary ? (
         <SummaryWidget transactions={transactions} invoices={invoices} />

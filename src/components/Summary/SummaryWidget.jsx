@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   SummaryContainer,
-  SummaryWrapper,
   SummaryList,
   TotalAmount,
   ClientSelectionWrapper,
-  Name,
+  Desc,
   NameDropdown,
+  AmountWrapper,
 } from "./Summary.styles";
 
 const SummaryWidget = ({ transactions, invoices }) => {
@@ -64,49 +64,48 @@ const SummaryWidget = ({ transactions, invoices }) => {
 
   return (
     <SummaryContainer>
-      <SummaryWrapper>
-        <TotalAmount className={getColorClass()}>
-          Total Amount: ${totalAmount}
-        </TotalAmount>
-        <p>Invoices created in the last 30 days: {invoicesLast30Days.length}</p>
-        <ClientSelectionWrapper>
-          <Name>Select a Customer:</Name>
-          <NameDropdown
-            id="customerDropdown"
-            value={selectedName}
-            onChange={handleNameChange}
-            className="dropdown"
-          >
-            <option value="">All Clients</option>
-            {uniqueClients.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </NameDropdown>
-        </ClientSelectionWrapper>
-        <h3>Summary for {selectedName || "All Customers"}</h3>
-        <SummaryList>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Description</th>
+      <AmountWrapper>
+        <Desc>Total Amount:</Desc>
+        <TotalAmount className={getColorClass()}>${totalAmount}</TotalAmount>
+      </AmountWrapper>
+      <p>Invoices created in the last 30 days: {invoicesLast30Days.length}</p>
+      <ClientSelectionWrapper>
+        <Desc>Select a Customer:</Desc>
+        <NameDropdown
+          id="customerDropdown"
+          value={selectedName}
+          onChange={handleNameChange}
+          className="dropdown"
+        >
+          <option value="">All Clients</option>
+          {uniqueClients.map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </NameDropdown>
+      </ClientSelectionWrapper>
+      <h3>Summary for {selectedName || "All Customers"}</h3>
+      <SummaryList>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {getFilteredTransactions().map((transaction) => (
+            <tr key={transaction.ID}>
+              <td>{transaction.ID}</td>
+              <td>{transaction.transactionDate}</td>
+              <td>${transaction.amount}</td>
+              <td>{transaction.description}</td>
             </tr>
-          </thead>
-          <tbody>
-            {getFilteredTransactions().map((transaction) => (
-              <tr key={transaction.ID}>
-                <td>{transaction.ID}</td>
-                <td>{transaction.transactionDate}</td>
-                <td>${transaction.amount}</td>
-                <td>{transaction.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </SummaryList>
-      </SummaryWrapper>
+          ))}
+        </tbody>
+      </SummaryList>
     </SummaryContainer>
   );
 };

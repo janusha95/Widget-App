@@ -47,3 +47,35 @@ export const InvoicesList = styled.table`
     }
   }
 `;
+
+export const FormContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  max-width: 90%;
+  margin: auto;
+`;
+
+export const Label = styled.label`
+  margin-bottom: 8px;
+  cursor: pointer;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  cursor: pointer;
+`;
+
+export const Button = styled.button`
+  border-radius: 3px;
+  border: 1px solid black;
+  height: 32px;
+  align-items: center;
+  color: black;
+  display: flex;
+  transition: all 200ms ease-in-out;
+  width: auto;
+  cursor: pointer;
+  background-color: white;
+`;

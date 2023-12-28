@@ -3,25 +3,32 @@ const api = {
   getTransactions: () => {
     const mockTransactions = [
       {
-        name: "Client A",
-        transactionDate: "2023-12-12",
+        name: "Lucy",
+        transactionDate: "2023-10-12",
         ID: "1",
-        amount: 1000,
-        description: "Food",
-      },
-      {
-        name: "Client B",
-        transactionDate: "2023-12-12",
-        ID: "2",
         amount: -500,
-        description: "Bill",
+        description: "Sale",
       },
       {
-        name: "Client C",
-        transactionDate: "2023-12-12",
+        name: "John",
+        transactionDate: "2023-12-16",
+        ID: "2",
+        amount: 1000,
+        description: "Sale",
+      },
+      {
+        name: "David",
+        transactionDate: "2023-12-18",
         ID: "3",
         amount: 800,
-        description: "Car",
+        description: "Service",
+      },
+      {
+        name: "Lucy",
+        transactionDate: "2023-12-28",
+        ID: "4",
+        amount: 100,
+        description: "Repair",
       },
     ];
 
@@ -30,22 +37,29 @@ const api = {
   getInvoices: () => {
     const mockInvoices = [
       {
-        name: "Client A",
-        creationDate: "2023-12-12",
+        name: "Lucy",
+        creationDate: "2023-10-12",
         ID: "1",
-        amount: 1000,
-      },
-      {
-        name: "Client B",
-        creationDate: "2023-01-10",
-        ID: "2",
         amount: -500,
       },
       {
-        name: "Client C",
-        creationDate: "2023-01-15",
+        name: "John",
+        creationDate: "2023-12-12",
+        ID: "2",
+        amount: 1000,
+      },
+      {
+        name: "David",
+        creationDate: "2023-12-18",
         ID: "3",
         amount: 800,
+      },
+      {
+        name: "Lucy",
+        creationDate: "2023-12-26",
+        ID: "4",
+        amount: 100,
+        description: "Bill",
       },
     ];
 

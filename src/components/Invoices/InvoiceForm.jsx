@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FormContainer, Label, Input, Button } from "./Invoice.styles";
 
 const InvoiceForm = ({
   invoices,
@@ -59,38 +60,38 @@ const InvoiceForm = ({
   };
 
   return (
-    <div>
+    <>
       <h2>{initialInvoice ? "Edit Invoice" : "Create New Invoice"}</h2>
-      <form>
-        <label>
+      <FormContainer>
+        <Label>
           ID:
-          <input
+          <Input
             type="number"
             value={ID}
             onChange={(e) => setID(e.target.value)}
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Name:
-          <input
+          <Input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Amount:
-          <input
+          <Input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
-        </label>
-        <button type="button" onClick={handleSaveInvoice}>
-          {initialInvoice ? "Update Invoice" : "Create Invoice"}
-        </button>
-      </form>
-    </div>
+        </Label>
+      </FormContainer>
+      <Button type="button" onClick={handleSaveInvoice}>
+        {initialInvoice ? "Update Invoice" : "Create Invoice"}
+      </Button>
+    </>
   );
 };
 
