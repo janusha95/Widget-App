@@ -50,6 +50,7 @@ const InvoicesWidget = ({
       </Button>
       {isFormVisible && (
         <InvoiceForm
+          invoices={invoices}
           initialInvoice={editingInvoice}
           onCreateInvoice={handleCreateInvoice}
           onUpdateInvoice={(updatedInvoice) =>
@@ -61,17 +62,33 @@ const InvoicesWidget = ({
         />
       )}
       <InvoicesList>
-        <div>
-          {"ID"} - {"Date"} - {"Name"} - {"Amount"} - {"Status"}
-        </div>
-        {invoices.map((invoice) => (
-          <div key={invoice.ID}>
-            {invoice.ID} - {invoice.creationDate} - {invoice.name} - $
-            {invoice.amount} -{" "}
-            {isInvoicePaid(invoice, transactions) ? "PAID" : "NOT PAID"}
-            <button onClick={() => handleEditInvoice(invoice)}>Edit</button>
-          </div>
-        ))}
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoices.map((invoice) => (
+            <tr key={invoice.ID}>
+              <td>{invoice.ID}</td>
+              <td>{invoice.creationDate}</td>
+              <td>{invoice.name}</td>
+              <td>${invoice.amount}</td>
+              <td>
+                {isInvoicePaid(invoice, transactions) ? "PAID" : "NOT PAID"}
+              </td>
+              <td>
+                {" "}
+                <button onClick={() => handleEditInvoice(invoice)}>Edit</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </InvoicesList>
     </InvoicesContainer>
   );

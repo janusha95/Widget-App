@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 
-const InvoiceForm = ({ initialInvoice, onCreateInvoice, onUpdateInvoice }) => {
+const InvoiceForm = ({
+  invoices,
+  initialInvoice,
+  onCreateInvoice,
+  onUpdateInvoice,
+}) => {
   const [name, setName] = useState(initialInvoice ? initialInvoice.name : "");
   const [amount, setAmount] = useState(
     initialInvoice ? String(initialInvoice.amount) : ""
   );
-
   const [ID, setID] = useState(initialInvoice ? String(initialInvoice.ID) : "");
+
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split("T")[0];
+    return formattedDate;
+  };
   const [creationDate, setCreationDate] = useState(
-    initialInvoice ? String(initialInvoice.creationDate) : ""
+    initialInvoice ? String(initialInvoice.creationDate) : getCurrentDate()
   );
 
   useEffect(() => {
@@ -16,9 +26,17 @@ const InvoiceForm = ({ initialInvoice, onCreateInvoice, onUpdateInvoice }) => {
       setName(initialInvoice.name);
       setAmount(String(initialInvoice.amount));
       setID(String(initialInvoice.ID));
-      setCreationDate(initialInvoice.creationDate);
+      setCreationDate(String(initialInvoice.creationDate));
+    } else {
+      // Set a new ID when creating a new invoice
+      const highestID = invoices.reduce(
+        (maxID, invoice) =>
+          parseInt(invoice.ID) > maxID ? parseInt(invoice.ID) : maxID,
+        0
+      );
+      setID(String(highestID + 1));
     }
-  }, [initialInvoice]);
+  }, [initialInvoice, invoices]);
 
   const handleSaveInvoice = () => {
     const updatedInvoice = {

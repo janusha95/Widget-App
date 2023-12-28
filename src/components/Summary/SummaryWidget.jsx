@@ -72,15 +72,24 @@ const SummaryWidget = ({ transactions, invoices }) => {
         </ClientSelectionWrapper>
         <h3>Summary for {selectedName || "All Clients"}</h3>
         <SummaryList>
-          <div>
-            {"ID"} - {"Date"} - {"Amount"} - {"Description"}
-          </div>
-          {getFilteredTransactions().map((transaction) => (
-            <div key={transaction.ID}>
-              {transaction.ID} - {transaction.transactionDate} - $
-              {transaction.amount} - {transaction.description}
-            </div>
-          ))}
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getFilteredTransactions().map((transaction) => (
+              <tr key={transaction.ID}>
+                <td>{transaction.ID}</td>
+                <td>{transaction.transactionDate}</td>
+                <td>${transaction.amount}</td>
+                <td>{transaction.description}</td>
+              </tr>
+            ))}
+          </tbody>
         </SummaryList>
       </SummaryWrapper>
     </SummaryContainer>
