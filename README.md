@@ -1,7 +1,7 @@
 # Widget-App
 
-Run npm i to install dependencies
-Run npm start to run in local
+- Run `npm i` to install dependencies
+- Run `npm start` to run in local
 
 ## Requirements fulfilled
 
@@ -12,9 +12,9 @@ Summary and Invoice Widget
 1. It has the Total Amount
    Probability Threshold is set to 1000
 
-   > 1000 is displayed in Green
-   > < 1000 is displayed in Yellow
-   > =< 0 is displayed in Red
+- > 1000 is displayed in Green
+- > < 1000 is displayed in Yellow
+- > =< 0 is displayed in Red
 
 2. No of invoices created in last 30 days
 
@@ -32,4 +32,4 @@ Summary and Invoice Widget
 5. Status and Creation Date is Read-only
 6. No of invoices will reflect in the Summary Widget when adding a new Invoice
 
-# Styling is done by Styled Components and Data is mocked and used from api.js
+- Styling is done by Styled Components and Data is mocked and used from api.js
