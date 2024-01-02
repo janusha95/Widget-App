@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SummaryWidget from "./components/Summary/SummaryWidget";
 import InvoicesWidget from "./components/Invoices/InvoicesWidget";
 import api from "./services/api";
+import store from "./store";
+import { Provider } from "react-redux";
 import { Button, Wrapper } from "./App.styles";
 
 const App = () => {
@@ -11,7 +13,6 @@ const App = () => {
 
   useEffect(() => {
     api.getTransactions().then((data) => setTransactions(data));
-    api.getInvoices().then((data) => setInvoices(data));
   }, []);
 
   const handleCreateInvoice = (newInvoice) => {
@@ -39,23 +40,25 @@ const App = () => {
   };
 
   return (
-    <div>
-      <Wrapper>
-        <Button onClick={handleNavigateToSummary}>Summary</Button>
-        <Button onClick={handleNavigateToInvoices}>Invoices</Button>
-      </Wrapper>
+    <Provider store={store}>
+      <div>
+        <Wrapper>
+          <Button onClick={handleNavigateToSummary}>Summary</Button>
+          <Button onClick={handleNavigateToInvoices}>Invoices</Button>
+        </Wrapper>
 
-      {showSummary ? (
-        <SummaryWidget transactions={transactions} invoices={invoices} />
-      ) : (
-        <InvoicesWidget
-          transactions={transactions}
-          invoices={invoices}
-          onCreateInvoice={handleCreateInvoice}
-          onUpdateInvoice={handleUpdateInvoice}
-        />
-      )}
-    </div>
+        {showSummary ? (
+          <SummaryWidget transactions={transactions} invoices={invoices} />
+        ) : (
+          <InvoicesWidget
+            transactions={transactions}
+            invoices={invoices}
+            onCreateInvoice={handleCreateInvoice}
+            onUpdateInvoice={handleUpdateInvoice}
+          />
+        )}
+      </div>
+    </Provider>
   );
 };
 

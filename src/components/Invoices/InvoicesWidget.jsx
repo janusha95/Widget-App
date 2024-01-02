@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import InvoiceForm from "./InvoiceForm";
 import { InvoicesContainer, InvoicesList } from "./Invoice.styles";
 import { Button } from "../../App.styles";
 import EditIcon from "@mui/icons-material/Edit";
+import { connect } from "react-redux";
+import { createInvoice } from "../../actions";
 
 const InvoicesWidget = ({
   invoices,
@@ -94,4 +95,12 @@ const InvoicesWidget = ({
   );
 };
 
-export default InvoicesWidget;
+const mapStateToProps = (state) => ({
+  invoices: state.invoices.invoices,
+});
+
+const mapDispatchToProps = {
+  onCreateInvoice: createInvoice,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InvoicesWidget);
