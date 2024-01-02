@@ -14,6 +14,8 @@ const InvoicesWidget = ({
 }) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingInvoice, setEditingInvoice] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
   const isInvoicePaid = (invoice, transactions) => {
     const matchingTransactions = transactions.filter(
@@ -39,6 +41,17 @@ const InvoicesWidget = ({
     onUpdateInvoice(updatedInvoice, index);
     setEditingInvoice(null);
     setIsFormVisible(false);
+  };
+
+  //Pagination
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const showInvoices = invoices.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(invoices.length / itemsPerPage);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
   };
 
   return (
@@ -71,7 +84,7 @@ const InvoicesWidget = ({
           </tr>
         </thead>
         <tbody>
-          {invoices.map((invoice) => (
+          {showInvoices.map((invoice) => (
             <tr key={invoice.ID}>
               <td>{invoice.ID}</td>
               <td>{invoice.creationDate}</td>
@@ -91,6 +104,23 @@ const InvoicesWidget = ({
           ))}
         </tbody>
       </InvoicesList>
+      <div>
+        <Button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          {" "}
+          Previous
+        </Button>
+        <span>{`Page ${currentPage} of ${totalPages}`}</span>
+        <Button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          {" "}
+          Next
+        </Button>
+      </div>
     </InvoicesContainer>
   );
 };
