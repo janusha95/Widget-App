@@ -8,13 +8,13 @@ import {
   NameDropdown,
   AmountWrapper,
 } from "./Summary.styles";
+import { POSITIVE_THRESHOLD } from "../../constants";
 
 const SummaryWidget = ({ transactions, invoices }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [selectedName, setSelectedName] = useState("");
   const [uniqueClients, setUniqueClients] = useState([]);
   const [invoicesLast30Days, setInvoicesLast30Days] = useState([]);
-  const POSITIVE_THRESHOLD = 1000;
 
   useEffect(() => {
     const calculatedTotal = transactions.reduce(

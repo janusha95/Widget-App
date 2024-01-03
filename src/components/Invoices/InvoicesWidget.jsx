@@ -5,6 +5,7 @@ import { Button } from "../../App.styles";
 import EditIcon from "@mui/icons-material/Edit";
 import { connect } from "react-redux";
 import { createInvoice } from "../../actions";
+import { ITEMS_PER_PAGE } from "../../constants";
 
 const InvoicesWidget = ({
   invoices,
@@ -15,7 +16,7 @@ const InvoicesWidget = ({
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [editingInvoice, setEditingInvoice] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = ITEMS_PER_PAGE;
 
   const isInvoicePaid = (invoice, transactions) => {
     const matchingTransactions = transactions.filter(
