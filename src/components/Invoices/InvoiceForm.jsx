@@ -22,6 +22,10 @@ const InvoiceForm = ({
     initialInvoice ? String(initialInvoice.creationDate) : getCurrentDate()
   );
 
+  const capFirstLetter = (name) => {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
+
   useEffect(() => {
     if (initialInvoice) {
       setName(initialInvoice.name);
@@ -30,12 +34,8 @@ const InvoiceForm = ({
       setCreationDate(String(initialInvoice.creationDate));
     } else {
       // Set a new ID when creating a new invoice
-      const highestID = invoices.reduce(
-        (maxID, invoice) =>
-          parseInt(invoice.ID) > maxID ? parseInt(invoice.ID) : maxID,
-        0
-      );
-      setID(String(highestID + 1));
+      const newID = invoices.length + 1;
+      setID(String(newID));
     }
   }, [initialInvoice, invoices]);
 
@@ -43,7 +43,7 @@ const InvoiceForm = ({
     const updatedInvoice = {
       ID,
       creationDate,
-      name,
+      name: capFirstLetter(name),
       amount: parseFloat(amount),
     };
 
